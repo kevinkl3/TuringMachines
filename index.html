@@ -41,12 +41,11 @@
 		<div class="row">	
 			<div class="large-4 columns">
 				<select id="S_transi" size="6">
-					<option value="1">(q1,0)-->(q2, ,L)</option>
 				</select>
 			</div>
 
 			<div class="large-2 row columns">
-				<button class="button success small">Add</button>
+				<button class="button success small" onClick="agregarTransicion();">Add</button>
 				
 			</div>
 			<style type="text/css">
@@ -63,9 +62,9 @@
 					,
 					<select id="talf" class="small-1"></select>
 					,
-					<select class="small-1">
-						<option value="0">L</option>
+					<select class="small-1" id="direccion">
 						<option value="1">R</option>
+						<option value="0">L</option>
 					</select>
 					)
 			</div>
@@ -83,7 +82,7 @@
 		<select id="qR_reject">
 			<option value="1">qR</option>
 		</select><br>
-		<button onclick="">Get</button>
+		<button onclick="crearTuringMachine();">Get</button>
 	</div>
 </body>
 
@@ -93,4 +92,5 @@
       $(document).foundation();
 </script>
 
+<script type="text/javascript" src="def.js"></script>
 <script type="text/javascript" src="main.js"></script>
