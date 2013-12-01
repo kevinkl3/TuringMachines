@@ -1,0 +1,96 @@
+
+<!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
+<link rel="stylesheet" href="cssFramework/css/foundation.css" />
+<script src="cssFramework/js/modernizr.js"></script>
+
+<body style="background-image:url('tiny_grid.png');">
+	<!--div class='row large-8' align="center">
+		<h1>Turing Machine</h1>
+	</div-->
+	<br>
+	<nav class="row top-bar large-8" data-topbar align="center">
+	  <ul class="title-area">
+	    <li class="name">
+	      <h1><a href="#">Turing Machine Simulator</a></h1>
+	    </li>
+	  </ul>
+
+	  <section class="top-bar-section">
+	    <!-- Right Nav Section -->
+	    <ul class="right">
+	      <li class="active"><a href="#">Right Nav Button Active</a></li>
+	    </ul>
+
+	    <!-- Left Nav Section -->
+	    <ul class="left">
+	      <li><a href="#">Left Nav Button</a></li>
+	    </ul>
+	  </section>
+	</nav>
+<br>
+
+	<div class="row panel large-6" style="swidth: 200">
+
+		<label><h5 style"font-weight:bold;">Q : </h5></label>
+		<input id="Q_estados" type="text" required><br>
+		<label><h5>&Sigma; : </h5></label>
+		<input id="E_alfabeto" type="text" required><br>
+		<label><h5>&Gamma; : </h5></label>
+		<input id="T_cinta_alf" type="text" required><br>
+		<label><h5>&delta; : </h5></label>
+		<div class="row">	
+			<div class="large-4 columns">
+				<select id="S_transi" size="6">
+					<option value="1">(q1,0)-->(q2, ,L)</option>
+				</select>
+			</div>
+
+			<div class="large-2 row columns">
+				<button class="button success small">Add</button>
+				
+			</div>
+			<style type="text/css">
+				.small-1 {
+    			width: 10.33333%; }
+			</style>
+			<div class="small-8 columns">(
+					<select id="qs" class="small-2"></select>
+					,
+					<select id="S_alf" class="small-1"></select>
+					)-->
+					(
+					<select id="qs1" class="small-2"></select>
+					,
+					<select id="talf" class="small-1"></select>
+					,
+					<select class="small-1">
+						<option value="0">L</option>
+						<option value="1">R</option>
+					</select>
+					)
+			</div>
+			
+		</div><br>
+		<label>q0: </label>
+		<select id="q0_inicial">
+			<option value="1">q0</option>
+		</select><br>
+		<label>qA: </label>
+		<select id="qA_accept">
+			<option value="1">qA</option>
+		</select><br>
+		<label>qR: </label>
+		<select id="qR_reject">
+			<option value="1">qR</option>
+		</select><br>
+		<button onclick="">Get</button>
+	</div>
+</body>
+
+<script src="cssFramework/js/jquery.js"></script>
+<script src="cssFramework/js/foundation.min.js"></script>
+<script>
+      $(document).foundation();
+</script>
+
+<script type="text/javascript" src="main.js"></script>
