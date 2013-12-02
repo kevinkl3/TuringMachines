@@ -54,18 +54,26 @@ function crearTuringMachine(){
 function agregarTransicion(){
 	transO = $("#S_transi");
 
-	q1 = $("#qs").val();
-	q2 = $("#qs1").val();
-	inp = $("#S_alf").val();
-	out = $("#talf").val();
+	q1 = $("#T_from").val();
+	q2 = $("#T_moveTo").val();
+	inp = $("#T_with").val();
+	out = $("#T_write").val();
 	dir = $("#direccion").val();
 
 	trans = new Transition(q2,out,dir);
 	transicionesFunction.addTransition(q1,inp,trans);
 
 	ts = "("+q1+"," + inp+")->("+q2+","+out+","+(dir == 1 ? 'R' : 'L')+")";
-	transO.append(new Option(ts,nTrans));
+	var opt=new Option(ts,nTrans);
+	transO.append(opt);
 	nTrans++;
+}
+
+function quitarTransicion(){
+	var value=$("#S_transi").val();
+	if(value!=-1){
+		$("#S_transi option[value='"+value+"']").remove();
+	}
 }
 
 $(document).ready(function(){
@@ -92,53 +100,53 @@ $( "#Q_estados" ).change(function() {
   var Sq0=$("#q0_inicial");
   var SqA=$("#qA_accept");
   var SqR=$("#qR_reject");
-  var qs=$("#qs");
-  var qs1=$("#qs1");
+  var T_from=$("#T_from");
+  var T_moveTo=$("#T_moveTo");
   Sq0.empty();
   SqA.empty();
   SqR.empty();
-  qs.empty();
-  qs1.empty();
+  T_from.empty();
+  T_moveTo.empty();
   var Q=separar($("#Q_estados").val());
   for (var i = 0; i<Q.length; i++) {
   	valor = ""+Q[i];
   	Sq0.append(new Option(valor,valor));
   	SqA.append(new Option(valor,valor));
   	SqR.append(new Option(valor,valor));
-  	qs.append(new Option(valor,valor));
-  	qs1.append(new Option(valor,valor));
+  	T_from.append(new Option(valor,valor));
+  	T_moveTo.append(new Option(valor,valor));
   };
   SqA.val("1");
   SqR.val("2");
 });
 
 $("#E_alfabeto").change(function(){
-	var S_alf=$('#S_alf');
-	S_alf.empty();
-	var S=separar($("#E_alfabeto").val());
-	var T_cinta_alf=$("#talf");
-	T_cinta_alf.empty();
-	for (var i = 0; i<S.length; i++) {
-		valor = ""+S[i];
-		S_alf.append(new Option(valor,valor));
-		T_cinta_alf.append(new Option(valor,valor));
-	};
-
+	Cinta();
 });
 
-$("#T_cinta_alf").change(function() {
-	var T_cinta_alf=$("#talf");
-	var S_alf=$('#S_alf');
-	S_alf.empty();
+function Cinta(){
+
+	var T=$("#T_cinta_alf");
+	var E=separar($("#E_alfabeto").val());
+	for (var i =0; i < E.length; i++) {
+		if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 ){
+			T.val(T.val()+","+E[i]);
+		}
+	};
+
+	var T_cinta_alf=$("#T_write");
+	var T_with=$('#T_with');
+	T_with.empty();
 	T_cinta_alf.empty();
 	var T=separar($("#T_cinta_alf").val());
+
 	for (var i =0; i<T.length; i++) {
 		T_cinta_alf.append(new Option(""+T[i],""+T[i]));
-		S_alf.append(new Option(""+T[i],""+T[i]));
+		T_with.append(new Option(""+T[i],""+T[i]));
 	};
-	return;
-	var S=separar($("#E_alfabeto").val());	
-	for (var i = 0; i<S.length; i++) {
-		T_cinta_alf.append(new Option(""+S[i],""+S[i]));
-	};
+}
+
+
+$("#T_cinta_alf").change(function() {
+	Cinta();
 });
