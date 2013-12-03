@@ -19,7 +19,7 @@
 			T.push(E[i]);
 		}
 	}	
-	s=$("#S_transi").val();
+	s=$("#listaTransiciones").val();
 	var S=separar(s);
 
 	s=$("#q0_inicial").val();
@@ -52,7 +52,7 @@ function crearTuringMachine(){
 }
 
 function agregarTransicion(){
-	transO = $("#S_transi");
+	transO = $("#listaTransiciones");
 
 	q1 = $("#T_from").val();
 	q2 = $("#T_moveTo").val();
@@ -70,11 +70,26 @@ function agregarTransicion(){
 }
 
 function quitarTransicion(){
-	var value=$("#S_transi").val();
+	var value=$("#listaTransiciones").val();
 	if(value!=-1){
-		$("#S_transi option[value='"+value+"']").remove();
+		$("#listaTransiciones option[value='"+value+"']").remove();
 	}
 }
+
+function compute () {
+	console.log(turingMachine!=null);
+	if(turingMachine!=null){
+		var s=$("#writeString");
+		turingMachine.computeString(s.val());
+		if(turingMachine.currentState==turingMachine.acceptState){
+			s.attr("style","background-color:lightgreen;");
+		}else{
+			s.attr("style","background-color:lightcoral;");
+		}
+	}
+}
+
+
 
 $(document).ready(function(){
 	transicionesFunction = new TransitionFunction();
@@ -116,8 +131,8 @@ $( "#Q_estados" ).change(function() {
   	T_from.append(new Option(valor,valor));
   	T_moveTo.append(new Option(valor,valor));
   };
-  SqA.val("1");
-  SqR.val("2");
+  SqA.val(""+Q[1]);
+  SqR.val(""+Q[2]);
 });
 
 $("#E_alfabeto").change(function(){
@@ -128,12 +143,13 @@ function Cinta(){
 
 	var T=$("#T_cinta_alf");
 	var E=separar($("#E_alfabeto").val());
-	for (var i =0; i < E.length; i++) {
-		if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 ){
-			T.val(T.val()+","+E[i]);
-		}
-	};
-
+	if(E[0]!=""){
+		for (var i =0; i < E.length; i++) {
+			if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 ){
+				T.val(T.val()+","+E[i]);
+			}
+		};
+	}
 	var T_cinta_alf=$("#T_write");
 	var T_with=$('#T_with');
 	T_with.empty();

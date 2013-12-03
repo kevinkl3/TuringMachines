@@ -90,14 +90,14 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 				}
 			}else{
 				console.log("No Transition defined for: " + transitionKey);
-				alert('Not accepted');
+				//alert('Not accepted');
 				break;
 			}
 		}
 		if(this.currentState == this.acceptState){
-			alert('Acepted');
+			//alert('Acepted');
 		}else{
-			alert('Rejected');
+			//alert('Rejected');
 		}
 	}
 	this.computeString = function(str){
