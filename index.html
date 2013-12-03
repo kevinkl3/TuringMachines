@@ -30,14 +30,14 @@
 <br>
 
 	<div class="row panel large-6" style="swidth: 200">
-		<a onclick='$("#TD").toggle(); $("#writeString").focus();'class="button gray [ small radius round]" style="background-color:gray;">Toggle</a>
+		<a onclick='$("#TD").slideToggle(); $("#writeString").focus();'class="button gray [ small radius round]" style="background-color:gray;">Toggle</a>
 <div id="TD">
 		<label><h5 style"font-weight:bold;">Q : Ingrese conjunto de estados. Ex: "q0,qA,qR,q1...,qi" </h5></label>
-		<input id="Q_estados" type="text" required><br>
+		<input id="inputEstados" type="text" required><br>
 		<label><h5>&Gamma; : Ingrese el alfabeto de la cinta. Ex: "_,#,..." </h5></label>
-		<input id="T_cinta_alf" type="text" required><br>
+		<input id="inputCintaAlphabet" type="text" required><br>
 		<label><h5>&Sigma; : Ingrese el alfabeto de la maquina. Ex: "0,1..." </h5></label>
-		<input id="E_alfabeto" type="text" required><br>
+		<input id="inputAlphabet" type="text" required><br>
 		<label><h5>&delta; : Agregue transiciones.</h5></label>
 		<div class="row">	
 			<div class="large-4 columns">
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 		<div class="large-10">
-			<button id="get" class="button success" onclick="crearTuringMachine(); $('#TD').toggle(); $('#writeString').focus();">Get</button>
+			<button id="get" class="button success" onclick="crearTuringMachine(); $('#TD').slideToggle(); $('#writeString').focus();">Get</button>
 		</div>
 	</div>
 	 <div class="row collapse">

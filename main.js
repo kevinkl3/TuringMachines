@@ -6,11 +6,11 @@
 \------------------------------------------------------*/
 
 /*function dividir(){
-	var s=$("#Q_estados").val();
+	var s=$("#inputEstados").val();
 	var Q=separar(s);
-	s=$("#E_alfabeto").val();
+	s=$("#inputAlphabet").val();
 	var E=separar(s);
-	s=$("#T_cinta_alf").val();
+	s=$("#inputCintaAlphabet").val();
 	var T=separar(s);
 	T.push(" ");
 	//Agrega los elementos del alfabeto
@@ -45,6 +45,10 @@ var turingMachine;
 
 function crearTuringMachine(){
 	Q = [];E= []; T=[];
+	$("#writeString").attr("style","background-color:white;");
+	Q = separar($("#inputEstados").val());
+	E = separar($("#inputAlphabet").val());
+	T = separar($("#inputCintaAlphabet").val());
 	var Sq0=$("#q0_inicial").val();
   	var SqA=$("#qA_accept").val();
   	var SqR=$("#qR_reject").val();
@@ -64,9 +68,8 @@ function agregarTransicion(){
 	transicionesFunction.addTransition(q1,inp,trans);
 
 	ts = "("+q1+"," + inp+")->("+q2+","+out+","+(dir == 1 ? 'R' : 'L')+")";
-	var opt=new Option(ts,nTrans);
+	var opt=new Option(ts,q1+','+inp);
 	transO.append(opt);
-	nTrans++;
 }
 
 function quitarTransicion(){
@@ -74,6 +77,7 @@ function quitarTransicion(){
 	if(value!=-1){
 		$("#listaTransiciones option[value='"+value+"']").remove();
 	}
+	delete transicionesFunction.transiciones[value];
 }
 
 function compute () {
@@ -93,7 +97,6 @@ function compute () {
 
 $(document).ready(function(){
 	transicionesFunction = new TransitionFunction();
-	nTrans = 0;
 });
 
 function validate(A,s){
@@ -111,7 +114,7 @@ function separar(s){
 	return A;
 }
 
-$( "#Q_estados" ).change(function() {
+$( "#inputEstados" ).change(function() {
   var Sq0=$("#q0_inicial");
   var SqA=$("#qA_accept");
   var SqR=$("#qR_reject");
@@ -122,7 +125,7 @@ $( "#Q_estados" ).change(function() {
   SqR.empty();
   T_from.empty();
   T_moveTo.empty();
-  var Q=separar($("#Q_estados").val());
+  var Q=separar($("#inputEstados").val());
   for (var i = 0; i<Q.length; i++) {
   	valor = ""+Q[i];
   	Sq0.append(new Option(valor,valor));
@@ -135,14 +138,14 @@ $( "#Q_estados" ).change(function() {
   SqR.val(""+Q[2]);
 });
 
-$("#E_alfabeto").change(function(){
+$("#inputAlphabet").change(function(){
 	Cinta();
 });
 
 function Cinta(){
 
-	var T=$("#T_cinta_alf");
-	var E=separar($("#E_alfabeto").val());
+	var T=$("#inputCintaAlphabet");
+	var E=separar($("#inputAlphabet").val());
 	if(E[0]!=""){
 		for (var i =0; i < E.length; i++) {
 			if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 ){
@@ -150,19 +153,24 @@ function Cinta(){
 			}
 		};
 	}
-	var T_cinta_alf=$("#T_write");
+	var inputCintaAlphabet=$("#T_write");
 	var T_with=$('#T_with');
 	T_with.empty();
-	T_cinta_alf.empty();
-	var T=separar($("#T_cinta_alf").val());
+	inputCintaAlphabet.empty();
+	var T=separar($("#inputCintaAlphabet").val());
 
 	for (var i =0; i<T.length; i++) {
-		T_cinta_alf.append(new Option(""+T[i],""+T[i]));
-		T_with.append(new Option(""+T[i],""+T[i]));
+		valor = ""+T[i];
+		inputCintaAlphabet.append(new Option(valor,valor));
+		T_with.append(new Option(valor,valor));
 	};
 }
 
 
-$("#T_cinta_alf").change(function() {
+$("#inputCintaAlphabet").change(function() {
 	Cinta();
 });
+
+$("#writeString").keyup(function() {
+	$("#writeString").attr("style","background-color:white;");
+})
