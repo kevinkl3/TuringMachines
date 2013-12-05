@@ -63,10 +63,11 @@ $(document).ready(function() {
 		};		
 	}
 	function loadJS(id, src) {
-	    if ($("#"+id) == null){ return;}
-	    var js = document.createElement('script');
-	    js.id = id; js.async = false; js.src = src;
-	    document.getElementsByTagName('head')[0].appendChild(js);
-	}        
+	    if (document.getElementById(id) != null){ return;}
+		    var js = document.createElement('script');
+		    js.id = id; js.async = false; js.src = src;
+
+		    document.getElementsByTagName('head')[0].appendChild(js);
+		}        
 });
 
