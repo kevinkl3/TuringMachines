@@ -5,40 +5,6 @@
 |	Oseas Andres Torrez - andrews_torres@hotmail.com 	|
 \------------------------------------------------------*/
 
-/*function dividir(){
-	var s=$("#inputEstados").val();
-	var Q=separar(s);
-	s=$("#inputAlphabet").val();
-	var E=separar(s);
-	s=$("#inputCintaAlphabet").val();
-	var T=separar(s);
-	T.push(" ");
-	//Agrega los elementos del alfabeto
-	for (var i = 0; i<E.length; i++) {
-		if(E[i]!=""){
-			T.push(E[i]);
-		}
-	}	
-	s=$("#listaTransiciones").val();
-	var S=separar(s);
-
-	s=$("#q0_inicial").val();
-	var q0=s;
-
-	s=$('#qA_accept').val();
-	var qA=s;
-	s=$('#qR_reject').val();
-	var qR=s;
-	console.log(Q);
-	console.log(E);
-	console.log(T);
-	console.log(S);
-	console.log(q0);
-	console.log(qA);
-	console.log(qR);
-
-}*/
-
 var transicionesFunction;
 var nTrans;
 var turingMachine;
@@ -81,10 +47,10 @@ function quitarTransicion(){
 }
 
 function compute () {
-	console.log(turingMachine!=null);
+	//console.log(turingMachine!=null);
 	if(turingMachine!=null){
 		var s=$("#writeString");
-		turingMachine.computeString(s.val());
+		turingMachine.computeString(s.val()+"_");
 		if(turingMachine.currentState==turingMachine.acceptState){
 			s.attr("style","background-color:lightgreen;");
 		}else{
@@ -148,7 +114,7 @@ function Cinta(){
 	var E=separar($("#inputAlphabet").val());
 	if(E[0]!=""){
 		for (var i =0; i < E.length; i++) {
-			if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 ){
+			if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 && T.val().indexOf(E[i])+","==-1 ){
 				T.val(T.val()+","+E[i]);
 			}
 		};

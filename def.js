@@ -64,12 +64,14 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 	this.alphabet = E;
 	this.tapeAlphabet = T;
 	this.transitionFunction = d;
-	this.initialState = q0;
+	
 	this.acceptState = qa;
 	this.rejectState = qr;
-	this.head = 0;
-	this.currentState = q0;
+	
 	this.computeTape = function(tape){
+		this.initialState = q0;
+		this.head = 0;
+		this.currentState = q0;
 		console.log("Trying to Compute Tape: " + tape.str);
 		while(this.currentState != this.acceptState && this.currentState != this.rejectState){
 			input = tape.read(this.head);
@@ -81,7 +83,7 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 				console.log("Going to State: " + this.currentState);
 				tape.write(this.head,transition.output);
 				console.log("Wrote: " + transition.output);
-				if(transition.moveDirection == 1){
+				if(transition.moveDirection == "R"){
 					this.head++;
 					console.log("Moved head to : Right");
 				}else{
@@ -93,11 +95,6 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 				//alert('Not accepted');
 				break;
 			}
-		}
-		if(this.currentState == this.acceptState){
-			//alert('Acepted');
-		}else{
-			//alert('Rejected');
 		}
 	}
 	this.computeString = function(str){
