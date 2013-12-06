@@ -8,7 +8,6 @@
 var transicionesFunction;
 var nTrans;
 var turingMachine;
-
 function crearTuringMachine(){
 	Q = [];E= []; T=[];
 	$("#writeString").attr("style","background-color:white;");
@@ -114,8 +113,10 @@ function Cinta(){
 	var E=separar($("#inputAlphabet").val());
 	if(E[0]!=""){
 		for (var i =0; i < E.length; i++) {
-			if(T.val().indexOf(","+E[i]+",")==-1 && T.val().indexOf(","+E[i])==-1 && T.val().indexOf(E[i])+","==-1 ){
-				T.val(T.val()+","+E[i]);
+			var sT=T.val().replace(/ /g,"");
+			if(sT.indexOf(","+E[i]+",")==-1 && sT.indexOf(","+E[i])==-1 && sT.indexOf(E[i]+",")==-1 ){
+				T.val(sT+(sT=="" ? ""+E[i] : ","+E[i] ));
+				
 			}
 		};
 	}
@@ -132,11 +133,13 @@ function Cinta(){
 	};
 }
 
-
 $("#inputCintaAlphabet").change(function() {
 	Cinta();
 });
 
-$("#writeString").keyup(function() {
+$("#writeString").keyup(function(event) {
 	$("#writeString").attr("style","background-color:white;");
+	if(event.keyCode==13){
+		$("#buttonCompute").click();
+	}
 })

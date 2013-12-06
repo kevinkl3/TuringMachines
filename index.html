@@ -33,18 +33,18 @@
 <div class="small-2 panel columns row side-nav">
 		<h3>Examples:</h3>
 		<ul>
-	  	<li><a class="large-10 [ small ]" id="palindromo" >Cadena Palindromo</a></li>
+	  	<li><a class="large-10 [ small ]" id="palindromo" >Cadena w#w</a></li>
 	  	</ul>
 </div>
 	<div class="row panel large-6" style="swidth: 200">
 		<a onclick='$("#TD").slideToggle(); $("#writeString").focus();'class="button gray [ small radius round]" style="background-color:gray;">Toggle</a>
 <div id="TD">
 		<label><h5 style"font-weight:bold;">Q : Ingrese conjunto de estados. Ex: "q0,qA,qR,q1...,qi" </h5></label>
-		<input id="inputEstados" type="text" required><br>
+		<input id="inputEstados" type="text" required>
 		<label><h5>&Gamma; : Ingrese el alfabeto de la cinta. Ex: "_,#,..." </h5></label>
-		<input id="inputCintaAlphabet" type="text" required><br>
+		<input id="inputCintaAlphabet" type="text" required>
 		<label><h5>&Sigma; : Ingrese el alfabeto de la maquina. Ex: "0,1..." </h5></label>
-		<input id="inputAlphabet" type="text" required><br>
+		<input id="inputAlphabet" type="text" required>
 		<label><h5>&delta; : Agregue transiciones.</h5></label>
 		<div class="row">	
 			<div class="large-4 columns">
@@ -108,7 +108,7 @@
 	      <input id="writeString" type="text" placeholder="Write String">
 	    </div>
 	    <div class="large-4 small-3 columns">
-	      <a onclick="compute();" class="alert button" style="line-height:4px;" >Compute String</a>
+	      <a id="buttonCompute" onclick="compute();" class="alert button" style="line-height:4px;" >Compute String</a>
 	    </div>
 	  </div>
 </div>

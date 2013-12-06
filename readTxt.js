@@ -1,6 +1,7 @@
-var Q="", T="", E="", S="";
-var q0="",qA="",qR="",contentStr="";
+
 $(document).ready(function() {
+	var Q="", T="", E="", S="";
+	var q0="",qA="",qR="",contentStr="";
             $("#palindromo").click(function() {
             	//$("#txtPal").attr("src","palindromo.txt");
             	$(loadJS("pal","palindromo.txt"))
