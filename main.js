@@ -142,4 +142,8 @@ $("#writeString").keyup(function(event) {
 	if(event.keyCode==13){
 		$("#buttonCompute").click();
 	}
-})
+});
+
+function cleanEditor(){
+	$("#editor").val("Estados:\nCinta:\nAlfabeto:\nTransiciones:\n\nq0:\nqA:\nqR:");
+}

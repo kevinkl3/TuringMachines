@@ -1,4 +1,4 @@
-var content = "Q: q1,qA,qR,q2,q3,q4,q7,q8\n"
+var content = "Q: q1,qA,qR,q2,q3,q4,q5,q6,q7,q8\n"
 +"T: x,_0,1,#\n"
 +"E: 0,1,#\n"
 +"S: (q1,0)-(q2,x,R), (q1,1)-(q3,x,R), (q1,#)-(q8,#,R), " 

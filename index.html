@@ -2,7 +2,8 @@
 <!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
 <head>
 <link rel="stylesheet" href="cssFramework/css/foundation.css" />
-<script src="cssFramework/js/modernizr.js"></script>
+<link href="jquery-linedtextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body style="background-image:url('tiny_grid.png');">
@@ -29,16 +30,26 @@
 	    </ul>
 	  </section>
 	</nav>
-<br>
-<div class="small-2 panel columns row side-nav">
-		<h3>Examples:</h3>
-		<ul>
-	  	<li><a class="large-10 [ small ]" id="palindromo" >Cadena w#w</a></li>
+	<br>
+<div class="small-2 panel columns">
+		<h3>Teoria:</h3>
+		<div id="teoTM" class="reveal-modal" data-reveal>
+		  <h2>Que es una maquina de Turing?</h2>
+		  <p class="lead">Your couch.  It is mine.</p>
+		  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+		  <a class="close-reveal-modal">&#215;</a>
+		</div>
+		<ul class="side-nav">
+			<li><a data-reveal-id="teoTM">Que es una Maquina de Turing?</a></li>
+		</ul>
+		<h3>Ejemplos:</h3>
+		<ul class="side-nav">
+	  	<li><a id="palindromo">Cadena w#w</a></li>
 	  	</ul>
 </div>
-	<div class="row panel large-6" style="swidth: 200">
+	<div class="row panel large-6">
 		<a onclick='$("#TD").slideToggle(); $("#writeString").focus();'class="button gray [ small radius round]" style="background-color:gray;">Toggle</a>
-<div id="TD">
+	<div id="TD">
 		<label><h5 style"font-weight:bold;">Q : Ingrese conjunto de estados. Ex: "q0,qA,qR,q1...,qi" </h5></label>
 		<input id="inputEstados" type="text" required>
 		<label><h5>&Gamma; : Ingrese el alfabeto de la cinta. Ex: "_,#,..." </h5></label>
@@ -103,22 +114,65 @@
 			<button id="get" class="button success" onclick="crearTuringMachine(); $('#TD').slideToggle(); $('#writeString').focus();">Get</button>
 		</div>
 	</div>
-	 <div class="row collapse">
-	    <div class="large-8 small-9 columns">
-	      <input id="writeString" type="text" placeholder="Write String">
-	    </div>
-	    <div class="large-4 small-3 columns">
-	      <a id="buttonCompute" onclick="compute();" class="alert button" style="line-height:4px;" >Compute String</a>
-	    </div>
-	  </div>
+	<div class="row collapse">
+	   <div class="large-8 small-9 columns">
+	     <input id="writeString" type="text" placeholder="Write String">
+	   </div>
+	   <div class="large-4 small-3 columns">
+	     <a id="buttonCompute" onclick="compute();" class="alert button" style="line-height:4px;" >Compute String</a>
+	   </div>
+	</div>
+	<div >
+		<textarea id="editor" style=' padding: 0; height: 18rem; width:90%; color:white; background-color:#272822; font-size:16;
+		font-family: "Consolas", "Menlo", "Courier", monospace;' class="lined">Estados:
+Cinta:
+Alfabeto:
+Transiciones:
+
+q0:
+qA:
+qR:
+</textarea>
+
+<button onclick="cleanEditor();" class="large [ small tiny ]">Clean</button>
+<button onclick="createTM(); $('#writeString').focus();" class="success [ small tiny ]">Get</button>
+	</div>
 </div>
+
+<footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>&copy; Copyright no one at all. Go to town.</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="#">Section 1</a></li>
+            <li><a href="#">Section 2</a></li>
+            <li><a href="#">Section 3</a></li>
+            <li><a href="#">Section 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+  </footer>
+
 </body>
 
 <script src="cssFramework/js/jquery.js"></script>
 <script src="cssFramework/js/foundation.min.js"></script>
-<script>
-      $(document).foundation();
+<script src="jquery-linedtextarea/jquery-linedtextarea.js"></script>
+<script src="cssFramework/js/modernizr.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
 
+      $(document).foundation();
+	  $(".lined").linedtextarea(
+				{selectedLine: 1}
+			);
+	  $("#TD").hide();	 	
+});	
 </script>
 
 <script type="text/javascript" src="def.js"></script>
