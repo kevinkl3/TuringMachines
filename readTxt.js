@@ -3,70 +3,34 @@
 	var Q="", T="", E="", S="";
 	var q0="",qA="",qR="",contentStr="";
 	var tupla={};
-            $("#palindromo").click(function() {
-            	//$("#txtPal").attr("src","palindromo.txt");
-            	$(loadJS("pal","palindromo.txt"))
+            $("#Eww").click(function() {
+            	//$("#txtPal").attr("src","ww.txt");
             	$(loadJS("ww","ww.txt"));
+
             	setTimeout(function(){
             	//$("#modoGUI:hidden").slideToggle();
-            	contentStr=content;
             	tupla=readFromEditor(contentEditor);
-            	ChargeInput();
+            	addAllTrans(tupla["Transiciones:"]);
+            	$('#inputEstados').change();
+            	$('#inputCintaAlphabet').change();
+            	//ChargeInput();
             	$("#editor").val(contentEditor);},100);
        });
+            $("#02").click(function(){
+            	$(loadJS("pow02","pow02.txt"));
+            	setTimeout(function(){
+            	//$("#modoGUI:hidden").slideToggle();
+            	tupla=readFromEditor(pow02);
+            	addAllTrans(tupla["Transiciones:"]);
+            	$('#inputEstados').change();
+            	$('#inputCintaAlphabet').change();
+            	//ChargeInput();
+            	$("#editor").val(pow02);},100);
 
-    function ChargeInput () {
-            	var j=contentStr.indexOf("\n");
-            	var inputs=$("#inputEstados");
-            	Q=contentStr.substr(0,j);            	
-            	inputs.val(Q.substr(3,Q.lenght));
-            	inputs.change();
-            	contentStr=contentStr.replace(Q+"\n","");
 
-            	j=contentStr.indexOf("\n");
-            	inputs=$("#inputCintaAlphabet");
-            	T=contentStr.substr(0,j);
-            	inputs.val(T.substr(3,T.lenght));
-            	inputs.change();
-            	contentStr=contentStr.replace(T+"\n","");
+            });
 
-            	j=contentStr.indexOf("\n");
-            	inputs=$("#inputAlphabet");
-            	E=contentStr.substr(0,j);
-            	inputs.val(E.substr(3,E.lenght));
-            	inputs.change();
-            	contentStr=contentStr.replace(E+"\n","");
-            	agregarTransicions();
-            }
-
-    function agregarTransicions(){
-		transO = $("#listaTransiciones");
-		transO.empty();
-		j=contentStr.indexOf("\n");
-		S=contentStr.substr(0,j);
-		S=S.replace("S: ","");
-		S=S.replace(/\(/g,"");
-		S=S.replace(/\)/g,"");
-		S=S.split(", ");
-		for (var i = 0; i < S.length; i++) {
-			var split=S[i].split("-");
-			var from=split[0].split(",");
-			var to=split[1].split(",");
-		    q1 = from[0]
-			q2 = to[0]
-			inp = from[1];
-			out = to[1]
-			dir = to[2];
-
-			trans = new Transition(q2,out,dir);
-			transicionesFunction.addTransition(q1,inp,trans);
-
-			ts = "("+q1+"," + inp+")->("+q2+","+out+","+(dir == 1 ? 'R' : 'L')+")";
-			var opt=new Option(ts,q1+','+inp);
-			transO.append(opt);
-			
-		};		
-	}
+    
 	function loadJS(id, src) {
 	    if (document.getElementById(id) != null){ return;}
 		    var js = document.createElement('script');
@@ -92,6 +56,9 @@
 			tmp=tmp.replace(reservedWords[i],"");
 			tupla[reservedWords[i]]=tmp.substr(0,tmp.indexOf("\n"));
 		};
+		$("#inputEstados").val(tupla['Estados:']);
+		$("#inputCintaAlphabet").val(tupla["Cinta:"]);
+		$("#inputAlphabet").val(tupla['Alfabeto:']);
 		//separar estados, cinta y alfabeto
 		for (var i = 0; i < reservedWords.length-4; i++) {
 			tupla[reservedWords[i]]=div(tupla[reservedWords[i]]);
@@ -107,6 +74,8 @@
 	}
 
 	function addAllTrans(stringTransitions){
+		transO = $("#listaTransiciones");
+		transO.empty();
 		arrayTransitions=stringTransitions.split("\n");
 		if(arrayTransitions.length%2!=0){
 			console.log("Error al agregar transiciones");
@@ -117,6 +86,10 @@
 			to=arrayTransitions[i+1].split(",");
 			trans = new Transition(to[0],to[1],to[2]);
 			transicionesFunction.addTransition(from[0],from[1],trans);
+
+			ts = "("+from[0]+"," + from[1]+")->("+to[0]+","+to[1]+","+(to[2])+")";
+			var opt=new Option(ts,from[0]+','+from[1]);
+			transO.append(opt);
 		};
 		
 	}

@@ -70,7 +70,7 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 	
 	this.computeTape = function(tape){
 		var strLog=tape['str'];
-
+		var counter=0;
 		this.initialState = q0;
 		this.head = 0;
 		this.currentState = q0;
@@ -78,8 +78,8 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 
 		strLog=q0+strLog;
 		console.log("first: "+strLog);
-		while(this.currentState != this.acceptState && this.currentState != this.rejectState){
-			
+		while(this.currentState != this.acceptState && this.currentState != this.rejectState && counter!=10000){
+			counter++;
 			input = tape.read(this.head);
 			transitionKey = this.currentState + ',' + input;
 			transition = this.transitionFunction.get(transitionKey);

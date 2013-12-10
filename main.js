@@ -151,6 +151,7 @@ $("#writeString").focus(function(){
 
 function cleanEditor(){
 	$("#editor").val("Estados:\nCinta:_,\nAlfabeto:\nTransiciones:\n\nq0:\nqA:\nqR:");
+	$("#txtLog").val("");
 }
 function cleanGUI(){
 	$("#inputAlphabet").val("");
@@ -167,4 +168,5 @@ function cleanGUI(){
 	var transicionesFunction=null;
 	var nTrans=null;
 	var turingMachine=null;
+	$("#txtLog").val("");
 }
