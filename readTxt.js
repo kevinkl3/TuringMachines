@@ -8,8 +8,9 @@
             	$(loadJS("pal","palindromo.txt"))
             	$(loadJS("ww","ww.txt"));
             	setTimeout(function(){
-            	//$("#TD:hidden").slideToggle();
+            	//$("#modoGUI:hidden").slideToggle();
             	contentStr=content;
+            	tupla=readFromEditor(contentEditor);
             	ChargeInput();
             	$("#editor").val(contentEditor);},100);
        });
@@ -77,6 +78,7 @@
 	function readFromEditor(string){
 		var s=string.replace(/\n/g,"");
 		s=s.replace(/ /g,"");
+		s=s.replace(/->/g,"");
 		var reservedWords=["Estados:","Cinta:","Alfabeto:","Transiciones:","q0:","qA:","qR:"];
 
 		for (var i = 0; i < reservedWords.length; i++) {
@@ -120,7 +122,7 @@
 	}
 
 	function createTM(){
-		tupla=readFromEditor($("#editor").val());
+		
 		addAllTrans(tupla["Transiciones:"]);
 		turingMachine = new TuringMachine(tupla["Estados:"],tupla["Cinta:"],tupla["Alfabeto:"],
 			transicionesFunction,tupla["q0:"],tupla["qA:"],tupla["qR:"]);

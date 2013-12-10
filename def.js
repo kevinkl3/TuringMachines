@@ -69,32 +69,55 @@ function TuringMachine(Q,E,T,d,q0,qa,qr){
 	this.rejectState = qr;
 	
 	this.computeTape = function(tape){
+		var strLog=tape['str'];
+
 		this.initialState = q0;
 		this.head = 0;
 		this.currentState = q0;
 		console.log("Trying to Compute Tape: " + tape.str);
+
+		strLog=q0+strLog;
+		console.log("first: "+strLog);
 		while(this.currentState != this.acceptState && this.currentState != this.rejectState){
+			
 			input = tape.read(this.head);
 			transitionKey = this.currentState + ',' + input;
 			transition = this.transitionFunction.get(transitionKey);
-			console.log("currentState: " + this.currentState + " | input: " + input);
+			//console.log("currentState: " + this.currentState + " | input: " + input);
 			if(transition !== undefined){
+				var previousState=this.currentState;
 				this.currentState = transition.destinationState;
-				console.log("Going to State: " + this.currentState);
+				//console.log("Going to State: " + this.currentState);
 				tape.write(this.head,transition.output);
-				console.log("Wrote: " + transition.output);
+				//console.log("Wrote: " + transition.output);
 				if(transition.moveDirection == "R"){
 					this.head++;
-					console.log("Moved head to : Right");
+					//console.log("Moved head to : Right");
+					itmp=strLog.indexOf(previousState);
+
+					tmp=strLog.charAt(itmp+previousState.length);
+					strLog=strLog.replace(previousState+tmp,transition.output+this.currentState);
+					
+					
 				}else{
 					this.head--;
-					console.log("Moved head to : Left");
-				}
+					//console.log("Moved head to : Left");
+					itmp=strLog.indexOf(previousState);
+					tmp=strLog.charAt(itmp+previousState.length);
+					if (itmp-1<0){
+						tmp2="";
+					}else{
+						tmp2=strLog.charAt(itmp-1);
+					}
+					strLog=strLog.replace(tmp2+previousState+tmp,this.currentState+tmp2+transition.output);
+					
+				}	
 			}else{
 				console.log("No Transition defined for: " + transitionKey);
 				//alert('Not accepted');
 				break;
 			}
+			$("#txtLog").val($("#txtLog").val()+"\n"+strLog);
 		}
 	}
 	this.computeString = function(str){

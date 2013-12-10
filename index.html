@@ -5,7 +5,7 @@
 <link href="jquery-linedtextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
 </head>
-
+<title>Turing Machine</title>
 <body style="background-image:url('tiny_grid.png');">
 	<!--div class='row large-8' align="center">
 		<h1>Turing Machine</h1>
@@ -21,35 +21,68 @@
 	  <section class="top-bar-section">
 	    <!-- Right Nav Section -->
 	    <ul class="right">
-	      <li class="active"><a href="#">Right Nav Button Active</a></li>
+	      <li class="active"><a href="#">About</a></li>
 	    </ul>
 
 	    <!-- Left Nav Section -->
 	    <ul class="left">
-	      <li><a href="#">Left Nav Button</a></li>
+	      <li ><a href="#">Home</a></li>
 	    </ul>
 	  </section>
 	</nav>
 	<br>
-<div class="small-2 panel columns">
-		<h3>Teoria:</h3>
-		<div id="teoTM" class="reveal-modal" data-reveal>
-		  <h2>Que es una maquina de Turing?</h2>
-		  <p class="lead">Your couch.  It is mine.</p>
-		  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
-		  <a class="close-reveal-modal">&#215;</a>
-		</div>
-		<ul class="side-nav">
-			<li><a data-reveal-id="teoTM">Que es una Maquina de Turing?</a></li>
-		</ul>
-		<h3>Ejemplos:</h3>
-		<ul class="side-nav">
-	  	<li><a id="palindromo">Cadena w#w</a></li>
-	  	</ul>
-</div>
+	<style type="text/css">
+		.sideNav{
+			position: absolute;
+			opacity: 10%;
+			left:20px;
+			background-color:rgba(255,255,100,0.3);
+			border: 1px dotted #aaa;
+			top:120px;
+		}
+		li{
+			padding-left: 10px;
+		}
+	</style>
+	<div class="small-2 panel columns sideNav">
+		
+			<ul class="side-nav">
+				<h3>Instrucciones:</h3>
+				<li><a data-reveal-id="instructions">Meter datos en Modo Avanzado:</a></li>
+			</ul>
+			
+			<ul class="side-nav">
+				<h3>Teoria:</h3>
+				<li><a data-reveal-id="teoTM">Que es una Maquina de Turing?</a></li>
+				<li><a data-reveal-id="teoFormal">Descripcion formal de una MT</a></li>
+			</ul>
+			
+			<ul class="side-nav">
+				<h3>Ejemplos:</h3>
+		  		<li><a id="palindromo">Cadena w#w</a></li>
+		  	</ul>
+	</div>
+
 	<div class="row panel large-6">
-		<a onclick='$("#TD").slideToggle(); $("#writeString").focus();'class="button gray [ small radius round]" style="background-color:gray;">Toggle</a>
-	<div id="TD">
+		<a onclick='$("#modoGUI:visible").slideToggle(); $("#modoAvanzado:hidden").slideToggle();  $("#editor").focus(); $("#editorContainer").toggle();'class="button active [ small radius round]" style="background-color:#226577;">Modo Avanzado</a>
+		<a onclick='$("#modoGUI").slideToggle(); $("#modoAvanzado:visible").slideToggle(); $("#editorContainer").toggle();'class="button gray [ small radius round]" style="background-color:#55aa33;">Modo GUI</a>
+		<br>
+		
+		<!--div id="container" style="border: 1px solid gray; background-color:white; width:660;"></div>
+		<div id="panel" style="position:absolute; height:350px; width:11.3%; top:110px; left:88%; background:#00799f;" class="row push-11 panel">
+			<style type="text/css">
+				.btn-Panel{		
+					font-size:6rem;
+				}
+			</style>
+			<button id="btnEstado" class="btn-Panel [ small tiny radius round ]">q</button>
+			<button id="btnTrans" class="btn-Panel [ small tiny radius ]">&delta;</button>
+		</div>
+		<button id="btnUndo" class="[ small ]" style="top: 5px;">Deshacer</button>
+		<button id="btnRedo" class="success [ small ]" style="top: 5px;">Rehacer</button>
+		<br-->
+   
+	<div id="modoGUI">
 		<label><h5 style"font-weight:bold;">Q : Ingrese conjunto de estados. Ex: "q0,qA,qR,q1...,qi" </h5></label>
 		<input id="inputEstados" type="text" required>
 		<label><h5>&Gamma; : Ingrese el alfabeto de la cinta. Ex: "_,#,..." </h5></label>
@@ -64,8 +97,8 @@
 			</div>
 
 			<div class="large-6 columns">
-				<button class="button small large-4" onClick="agregarTransicion();">Add</button>
-				<button class="button alert small large-4" onClick="quitarTransicion();">Remove</button>
+				<button class="button [ small ] large-4" onClick="agregarTransicion();">Agregar</button>
+				<button class="button alert [ small ] large-4" onClick="quitarTransicion();">Quitar</button>
 				
 			</div>
 			<style type="text/css">
@@ -111,8 +144,12 @@
 			</div>
 		</div>
 		<div class="large-10">
-			<button id="get" class="button success" onclick="crearTuringMachine(); $('#TD').slideToggle(); $('#writeString').focus();">Get</button>
+			<button id="get" class="button radius" onclick="cleanGUI();">Limpiar</button>
+			<button id="get" class="button success radius" onclick="crearTuringMachine(); $('#modoGUI').slideToggle(); $('#writeString').focus();">Crear TM</button>
 		</div>
+	</div>
+	<div id="log">
+		<textarea id="txtLog" readonly="true" style="resize:vertical; height:200px;"></textarea>
 	</div>
 	<div class="row collapse">
 	   <div class="large-8 small-9 columns">
@@ -122,20 +159,31 @@
 	     <a id="buttonCompute" onclick="compute();" class="alert button" style="line-height:4px;" >Compute String</a>
 	   </div>
 	</div>
-	<div >
-		<textarea id="editor" style=' padding: 0; height: 18rem; width:90%; color:white; background-color:#272822; font-size:16;
-		font-family: "Consolas", "Menlo", "Courier", monospace;' class="lined">Estados:
-Cinta:
-Alfabeto:
-Transiciones:
-
-q0:
-qA:
-qR:
-</textarea>
-
-<button onclick="cleanEditor();" class="large [ small tiny ]">Clean</button>
-<button onclick="createTM(); $('#writeString').focus();" class="success [ small tiny ]">Get</button>
+	<style type="text/css">
+		#editor{
+			border-radius: 2;
+			padding: 0;
+			padding-left:10px;
+			padding-top:5px;
+			height: 19rem; 
+			width:90%; 
+			color:white; 
+			background-color:#272822; 
+			font-size:17; 
+			font-family: "Consolas", "Menlo", "Courier", monospace;
+		}
+		#editor:focus{
+			-webkit-box-shadow: 5px 0 10px #999999;
+		    -moz-box-shadow: 5px 0 10px #999999;
+		    box-shadow: 5px 0 10px #999999;
+		    border-color: #999999; 
+		}
+	</style>
+	<div id="modoAvanzado" >
+		<textarea id="editor" class="lined"></textarea>
+		<!--div style="font-family:'Consolas'; font-size:17; position:absolute; background-color:transparent; color:blue; width:100px; height:100px; top:152px; left:93px;">Estados:</div-->
+		<button onclick="cleanEditor();" class="large [ small ]">Limpia<r/button>
+		<button onclick="createTM(); $('#writeString').focus(); " class="success [ small ]">Crear TM</button>
 	</div>
 </div>
 
@@ -148,10 +196,10 @@ qR:
         </div>
         <div class="large-6 columns">
           <ul class="inline-list right">
-            <li><a href="#">Section 1</a></li>
-            <li><a href="#">Section 2</a></li>
-            <li><a href="#">Section 3</a></li>
-            <li><a href="#">Section 4</a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#">About</a></li>
           </ul>
         </div>
       </div>
@@ -159,6 +207,69 @@ qR:
   </footer>
 
 </body>
+
+<div id="instructions" class="reveal-modal" data-reveal>
+  <h2>Modo Avanzado</h2>
+  <p class="lead">Tutorial.</p>
+  <p>El formato es el siguiente:</p>
+  <div class="columns row">
+	  <img align="left" src="tuto/formato.jpg">
+	  <p><info style="font-weight:bold;">Estados:</info> debes meter cada estado separado por ",". Ejemplo:</p>
+	  <img src="tuto/estados.jpg" align="right">
+	  <br><br>
+	  <p><info style="font-weight:bold;">Alfabeto:</info> debes meter cada simbolo separado por ",". Ejemplo:</p>
+	  <img src="tuto/alfabeto.jpg" align="right"><br><br>
+	  <p><info style="font-weight:bold;">Cinta:</info> debes meter cada simbolo separado por ",". El simbolo "_" esta implicito en el lenguaje puede agregarlo o no, asi como los simbolos del afabeto. Ejemplo:</p>
+	  <img src="tuto/cinta.jpg" align="right"><br><br>
+	  <p><info style="font-weight:bold;">Transiciones:</info>Hay dos manares de ingresar un transicion asi como en los Ejemplos:</p>
+	  <img src="tuto/transicion2.jpg" align="right"><br>
+	  <img src="tuto/transicion.jpg" align="right"><br><br><br>
+	  <p><info style="font-weight:bold;">q0:,qA:,qR:</info> Para q0, qA y qR todo el string luego de ":" se toma como el estado correspondiente. Ejemplo:</p>
+	  <img src="tuto/q0AR.jpg" align="right">
+	  <br><br>
+
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="teoTM" class="large-3 reveal-modal" width="1000" data-reveal >
+			  <h2>Que es una maquina de Turing?</h2>
+			  <p class="lead" >Definicion no formal</p>
+			  <p  style="font-family: Calibri; font-size:18;"> Una Maquina de Turing es un modelo de computacion. Puedes pensar que es una maquina en la cual puedes escribir una palabra como <info style="font-weight:bold;">entrada</info> y esta lo procesara y la <info style="font-weight:bold;">salida</info> sera si o no dependiendo si la palabra satisface cierta propiedad. Para entender este modelo, puedes imaginar una cinta infinta dividida en celdas:<br>
+ <img src="tuto/empty_tape.png"><br>
+ Cada celda puede contener un simbolo o ser vacia(&epsilon;). En la imagen de arriba cada celda esta vacia. La cinta tiene una cabeza de lectura-escritura.
+Cada Maquina de Turing tiene un conjunto de <info style="font-weight:bold;">estados</info>. Donde una Maquina de Turing esta corriendo, exactamente un estado a la vez. Cuando una maquina inicia procesando una palabra, la cabaza se encuentra en un estado especial llamado "estado inicial".
+La palabra en proceso esta determinada por las instrucciones de la maquina, las que llamaremos <info style="font-weight:bold;">transiciones</info> de ahora en delante. Una transicion le dice a la maquina qi:El estado actual, a:El simbolo que lee la cabeza --> qj:El estado a moverse, b:que escribir en la celda que apunta la cabeza Dir: Direccion a mover la cabeza. En otras palabras, cada transicion esta en la forma:</p>
+	<blockquote>Si esta en un estado qi leyendo un simbolo a, entonces muevase a un estado qj, escriba un simbolo b y muevase a lo mas una celda en direccion izquierda o derecha (La cabeza tambnien puede quedarse en la misma posicion).</blockquote>
+ <p  style="font-family: Calibri; font-size:18;"> Nota que qj puede ser el mismo estado qi y "b" puede ser igual a "a".De ahora en delante, la palabra w en proceso por la Maquina de Turing M sera llamada la ejecucion de M sobre w. Al inicio de la ejecucion, la entrada w se encuentra en algun lugar en la cinta y la cabeza de lectura-escritura apunta al primer simbolo de la entrada.
+Ahora Considera una Maquina de Turing con un estado incial q0 y supone que una de sus transicion es:
+</p>
+<blockquote>Si esta en estado q leyendo un simbolo a, entnces debe quedarse en el estado q, escribir el simbolo a y mover la cabeza una celda a la derecha.</blockquote>
+ <p  style="font-family: Calibri; font-size:18;"> 
+Si le damos a esta maquina la entrada HolaMundo!, al inicion de la ejecucion la cinta se veria asi:
+<br>
+#image#
+<br>
+En la primera transicion, la cabeza escribira a y se movera un espacio a la derecha. La maquina se quedara en el mismo estado.
+Asi es como se veria la cinta despues de aplicar la transicion:
+<br>
+#image#
+<br>
+La ejecucion se detendra cuando no haya una transicion por ser aplicada. Por ejemplo si la maquina anterior no tiene transcion de la forma "Si esta en estado qi leyendo simbolo e, entonces deberia...", la ejecucion consisiteria en una sola transicion.
+Finalmente, Hay un conjunto de estados, llamados estados de aceptacion, usualmente denotados por F, el cual es subconjunto de Q. Una vez la ejecucion con la entrada w ha finalizado, decimo que la maquina acepta w si el estado en que se detuvo la ejecucion es un estado de aceptacion.</p><a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="teoFormal" class="reveal-modal" data-reveal>
+	<h2>Descripcion Formal</h2>
+  <p class="lead">Una MT es una 7-tupla (Q,&Sigma;,&Gamma;,&delta;,q0,qA,qR)</p>
+  <p>Donde:</p>
+  <p><info style="font-weight:bold;">1.</info> Q: es un conjunto finito de estados,</p>
+  <p><info style="font-weight:bold;">2.</info> &Sigma;: es el alfabeto de entrada. Y no contiene el simbola espacio _,</p>
+  <p><info style="font-weight:bold;">3.</info> &Gamma;: es el alfabeto de la cinta, donde _ &isin; &Gamma; y &Sigma; &sube; &Gamma;, </p>
+  <p><info style="font-weight:bold;">4.</info> &delta;: Qx&Gamma;--->Qx&Gamma;x{L,R} es la funcion transicion,</p>
+  <p><info style="font-weight:bold;">5.</info> q0 &isin; Q es el estado inicial</p>
+  <p><info style="font-weight:bold;">6.</info> qA &isin; Q es el estado de aceptacion, y</p>
+  <p><info style="font-weight:bold;">7.</info> qR &isin; Q es el estado de rechazo donde qR&ne;qA.</p>
+</div>
 
 <script src="cssFramework/js/jquery.js"></script>
 <script src="cssFramework/js/foundation.min.js"></script>
@@ -169,9 +280,12 @@ $(document).ready(function(){
 
       $(document).foundation();
 	  $(".lined").linedtextarea(
-				{selectedLine: 1}
+				//{selectedLine: 1}
 			);
-	  $("#TD").hide();	 	
+	  $("#modoGUI").hide();
+	  cleanEditor();
+	  cleanGUI();
+	  $("#editor").focus();
 });	
 </script>
 

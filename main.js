@@ -47,6 +47,7 @@ function quitarTransicion(){
 
 function compute () {
 	//console.log(turingMachine!=null);
+	$('#txtLog').val("");
 	if(turingMachine!=null){
 		var s=$("#writeString");
 		turingMachine.computeString(s.val()+"_");
@@ -138,12 +139,32 @@ $("#inputCintaAlphabet").change(function() {
 });
 
 $("#writeString").keyup(function(event) {
-	$("#writeString").attr("style","background-color:white;");
+	$(this).attr("style","background-color:white;");
 	if(event.keyCode==13){
 		$("#buttonCompute").click();
 	}
 });
 
+$("#writeString").focus(function(){
+	$(this).attr("style","background-color:fdffaa;");
+});
+
 function cleanEditor(){
-	$("#editor").val("Estados:\nCinta:\nAlfabeto:\nTransiciones:\n\nq0:\nqA:\nqR:");
+	$("#editor").val("Estados:\nCinta:_,\nAlfabeto:\nTransiciones:\n\nq0:\nqA:\nqR:");
+}
+function cleanGUI(){
+	$("#inputAlphabet").val("");
+	$("#inputCintaAlphabet").val("_");
+	$("#inputEstados").val("");
+	$("#listaTransiciones").empty();
+	$("#T_from").empty();
+	$("#T_with").empty();
+	$("#T_moveTo").empty();
+	$("#T_write").empty();
+	$("#q0_inicial").empty();
+	$("#qA_accept").empty();
+	$("#qR_reject").empty();
+	var transicionesFunction=null;
+	var nTrans=null;
+	var turingMachine=null;
 }
