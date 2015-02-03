@@ -43,8 +43,8 @@
 		var s=string.replace(/\n/g,"");
 		s=s.replace(/ /g,"");
 		s=s.replace(/->/g,"");
-		s=s.replace(/(/g,""));
-		s=s.replace(/)/g,""));
+		s=s.replace(/\(/g,"");
+		s=s.replace(/\)/g,"");
 		var reservedWords=["Estados:","Cinta:","Alfabeto:","Transiciones:","q0:","qA:","qR:"];
 
 		for (var i = 0; i < reservedWords.length; i++) {
